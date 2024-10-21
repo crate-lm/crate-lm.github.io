@@ -67,42 +67,26 @@
                 <div class="columns is-centered">
                     <div class="column has-text-centered">
                         <h1 class="title publication-title">
-                            <img src="website/images/icon/icon.png" alt="logo" width="40" height="40" />
-                            DigiRL: Training In-The-Wild Device-Control Agents with Autonomous Reinforcement Learning
+                            <img src="website/images/icon/icon.png" alt="logo" width="60" height="60" />
+                            Improving Neuron-level Interpretability with White-box Language Models
                         </h1>
                         <div class="is-size-5 publication-authors">
                             <span class="author-block">
                                 <a href="https://www.jackgethome.com/">Hao Bai</a><sup>1,2*</sup>,
                             </span>
                             <span class="author-block">
-                                <a href="https://yifeizhou02.github.io">Yifei Zhou</a><sup>1*</sup>,
-                            </span>
-                            <span class="author-block">
-                                <a href="https://scholar.google.com/citations?user=sMEFwf8AAAAJ&hl=en">Mert Cemri</a><sup>1</sup>,
-                            </span>
-                            <span class="author-block">
-                                <a href="https://www.jiayipan.me/">Jiayi Pan</a><sup>1</sup>,
-                            </span>
-                            <br>
-                            <span class="author-block">
-                                <a href="https://www.alanesuhr.com/">Alane Suhr</a><sup>1</sup>,
-                            </span>
-                            <span class="author-block">
-                                <a href="https://people.eecs.berkeley.edu/~svlevine/">Sergey Levine</a><sup>1</sup>,
-                            </span>
-                            <span class="author-block">
-                                <a href="https://aviralkumar2907.github.io/">Aviral Kumar</a><sup>3</sup>
+                                <a href="https://aviralkumar2907.github.io/">Yi Ma</a><sup>1,3</sup>
                             </span>
                         </div>
 
                         <div class="is-size-5 publication-authors">
                             <span class="author-block"><sup>1</sup> UC Berkeley,</span>
                             <span class="author-block"><sup>2</sup> UIUC,</span>
-                            <span class="author-block"><sup>3</sup> Google DeepMind</span>
+                            <span class="author-block"><sup>3</sup> HKU</span>
                         </div>
 
                         <div class="is-size-5 publication-authors">
-                            <span class="author-block"><small>*Equal contribution, alphabetic order; work done at UC Berkeley</small></span>
+                            <span class="author-block"><small>*Work done at UC Berkeley</small></span>
 
                         <div class="column has-text-centered">
                             <div class="publication-links">
@@ -145,30 +129,12 @@
             <div class="is-centered has-text-centered">
                 <div class="custom-column-large">
                     <div class="is-centered custom-column-large">
-                        <h2 class="title is-3">Demo</h2>
-                        <div class="text-center">
-                            <div class="btn-group btn-group-toggle text-center task-selector" data-toggle="buttons">
-                                <button type="button" class="btn btn-outline-secondary btn-sm inline-vis-button" disabled>Speed:</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm active" id="fast-button">Fast</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm" id="slow-button">Slow</button>
-                            </div>
-                        </div>
+                        <h2 class="title is-3">Teaser</h2>
+                        <!-- add an image from /Users/mac/Desktop/crate-lm.github.io/website/images/teaser.jpg -->
                     </div>
-                        <br>
-                        <!-- All video -->
-                    <div id="fast-container">
-                        <video controls autoplay muted loop>
-                            <source src="website/videos/demo2_5x.mp4" type="video/mp4">
-                        </video>
-                    </div>
-
-                    <div id="slow-container" style="display:none;">
-                        <video controls autoplay muted loop>
-                            <source src="website/videos/demo2.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <small>Success rate and corresponding trajectories. A <font color="#007800">green</font> final screen indicates a successful trajectory; a <font color="#ff1900">red</font> final screen indicates a failed trajectory.</s>
                 </div>
+                <img src="website/images/teaser.jpg" alt="teaser" style="max-width: 100%; height: auto;">
+                <small>Instances are systematically identified where the interpretability of <strong>CRATE</strong> (ours, <em>row 1</em>) outperforms GPT-2 (<em>row 2</em>). For each neuron (<em>rounded box</em>), we show two top activated text excerpts (<em>excerpt</em> <strong>1</strong> and <strong>2</strong>) and one randomly activated excerpt (<em>excerpt</em> <strong>3</strong>). Results show that <strong>CRATE</strong> consistently activates <em>on and only on</em> semantically relevant text excerpts (first two excerpts), leading to more precise explanations predicted by agents like Mistral.</s>
             </div>
         </div>
     </section>
@@ -181,9 +147,12 @@
                     <h2 class="title is-3">Abstract</h2>
                     <div class="content has-text-justified">
                         <p>
-                            Training corpuses for vision language models typically lack sufficient amounts of decision-centric data. This renders off-the-shelf VLMs sub-optimal for decision-making tasks such as in-the-wild device control through graphical user interfaces (GUIs). While training with static demonstrations has shown some promise, we show that such methods fall short when controlling <b>real</b> GUIs due to their failure to deal with real world <b>stochasticity</b> not captured in static observational data.  
-                            This paper introduces a novel autonomous RL approach, called <b>DigiRL</b>, for training in-the-wild device control agents through fine-tuning a pre-trained VLM in two stages: offline RL to initialize the model, followed by offline-to-online RL. To do this, we build a <b>scalable</b> and <b>parallelizable</b> Android learning environment equipped with a VLM-based evaluator and develop a simple yet effective RL approach for learning in this domain. Our approach runs advantage-weighted RL with advantage estimators enhanced to account for stochasticity along with an automatic curriculum for deriving maximal learning signal. 
-                            We demonstrate the effectiveness of <b>DigiRL</b> using the Android-in-the-Wild (AitW) dataset, where our 1.5B VLM trained with RL achieves a <b>49.5% absolute improvement</b> -- from 17.7% to 67.2% success rate -- over supervised fine-tuning with static human demonstration data. These results significantly surpass not only the prior best agents, including AppAgent with GPT-4V (8.3% success rate) and the 17B CogAgent trained with AitW data (14.4%), but also the prior best autonomous RL approach based on filtered behavior cloning (57.8%), thereby <b>establishing a new state-of-the-art</b> for digital agents for in-the-wild device control.    
+                            Neurons in auto-regressive language models like GPT-2 can be interpreted by analyzing their activation patterns. Recent studies have shown that techniques such as dictionary learning, a form of post-hoc sparse coding, enhance this neuron-level interpretability.
+In our research, we are driven by the goal to fundamentally improve neural network interpretability by embedding sparse coding directly within the model architecture, rather than applying it as an afterthought.
+In our study, we introduce a white-box transformer-like architecture named Coding RAte TransformEr (\ours{}), explicitly engineered to capture sparse, low-dimensional structures within data distributions. 
+Our comprehensive experiments showcase significant improvements (up to $103$\% relative improvement) in neuron-level interpretability across a variety of evaluation metrics.
+Detailed investigations confirm that this enhanced interpretability is steady across different layers irrespective of the model size, underlining \ours{}'s robust performance in enhancing neural network interpretability.
+Further analysis shows that \ours{}'s increased interpretability comes from its enhanced ability to consistently and distinctively activate on relevant tokens. These findings point towards a promising direction for creating white-box foundation models that excel in neuron-level interpretation.
                         </p>
                     </div>
                 </div>

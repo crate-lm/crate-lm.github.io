@@ -129,7 +129,7 @@
                         </div>
                     </div>
                 <img src="website/images/teaser.png" alt="teaser" style="max-width: 100%; height: auto;">
-                Instances are systematically identified where the interpretability of <strong>CRATE</strong> (ours, <em>row 1</em>) outperforms GPT-2 (<em>row 2</em>). For each neuron (<em>rounded box</em>), we show two top activated text excerpts (<em>excerpt</em> <strong>1</strong> and <strong>2</strong>) and one randomly activated excerpt (<em>excerpt</em> <strong>3</strong>). Results show that <strong>CRATE</strong> consistently activates <em>on and only on</em> semantically relevant text excerpts (first two excerpts), leading to more precise explanations predicted by agents like Mistral.</s>
+                <a style="color:gray"> Instances are systematically identified where the interpretability of <strong>CRATE</strong> (ours, <em>row 1</em>) outperforms GPT-2 (<em>row 2</em>). For each neuron (<em>rounded box</em>), we show two top activated text excerpts (<em>excerpt</em> <strong>1</strong> and <strong>2</strong>) and one randomly activated excerpt (<em>excerpt</em> <strong>3</strong>). Results show that <strong>CRATE</strong> consistently activates <em>on and only on</em> semantically relevant text excerpts (first two excerpts), leading to more precise explanations predicted by agents like Mistral. </a>
                 </div>
             </div>
         </div>
@@ -159,70 +159,97 @@
 
     <section class="section" id="interaction-framework">
         <div class="container is-max-desktop">
-
-            <div class="columns is-full-width">
-
-                <!-- Visual Effects. -->
-                <div class="column">
-                    <div class="text-justified">
-                        <h2 class="title is-3">The CRATE Language Model: Improved Neuron-level Interpretability</h2>
-                        <h3>Architecture</h3>
-                        <div class="text-justified" id="tool-augmented">
-                            We apply the <a href="https://arxiv.org/abs/2306.01129">original CRATE architecture</a> to the <i>next-token prediction task</i>. This leads to several modifications in the model architecture:
-                            <br> 1. We apply a <b>causal mask</b> to ensure the model does not see tokens after the current one.
-                            <br> 2. We <b>over-parameterize</b> (increase the hidden dimension) of the <tt>ISTA</tt> block to match GPT-2's MLP block.
-                            <br> These modifications result in the block architecture below:
+            <div class="text-justified">
+                <h2 class="title is-3">The CRATE Language Model: Improved Neuron-level Interpretability</h2>
+                <h3>Architecture</h3>
+                <div class="text-justified" id="tool-augmented">
+                    We apply the <a href="https://arxiv.org/abs/2306.01129">original CRATE architecture</a> to the <i>next-token prediction task</i>. This leads to several modifications in the model architecture:
+                    <br> 1. We apply a <b>causal mask</b> to ensure the model does not see tokens after the current one.
+                    <br> 2. We <b>over-parameterize</b> (increase the hidden dimension) of the <tt>ISTA</tt> block to match GPT-2's MLP block.
+                    <br> These modifications result in the block architecture below:
+                </div>
+                <br>
+                <div class="container is-max-desktop">
+                    <div class="columns is-centered has-text-centered">
+                        <div class="column is-four-fifths">
+                            <img src="website/images/arch.jpg" alt="teaser" 
+                                style="margin: 0 auto; display: block; max-width: 1000px; width: 80%; height: auto;" />
+                            <p style="color:gray">Block architecture for the CRATE language model.</p>
                         </div>
-                        <br>
-                        <div class="container is-max-desktop">
-                            <div class="columns is-centered has-text-centered">
-                                <div class="column is-four-fifths">
-                                    <img src="website/images/arch.jpg" alt="teaser" 
-                                        style="margin: 0 auto; display: block; max-width: 1000px; width: 80%; height: auto;" />
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="text-justified" id="tool-augmented"></div>
-                            Despite the change of the block architecture, the <b>embedding layer and heads</b> are adjusted to accommodate the language vocabulary. Previously the embedding layer and head were the same as the <a href="https://arxiv.org/abs/2010.11929">Visual Transformer</a>.
-                        </div>
-                            <br><br>
-                        <h3> Learning Process </h3>
-                        The process starts with random token representations. Through successive layers, the representations are <b>compressed</b> to align with the axis via the MSSA block, forming intermediate representations are semantically more consistent among relevant tokens. This is then refined by <b>sparse coding</b> (the ISTA block) to produce the final representations that align on incoherent axes, leading to semantically more specified token representations. Repeated across layers, this culminates in distinct token representations aligned on unique semantic axes.
-                        <br><br>
+                    </div>
+                </div>
+                <br>
+                <div class="text-justified" id="tool-augmented"></div>
+                    Despite the change of the block architecture, the <b>embedding layer and heads</b> are adjusted to accommodate the language vocabulary. Previously the embedding layer and head were the same as the <a href="https://arxiv.org/abs/2010.11929">Visual Transformer</a>.
+                </div>
+                <br><br>
+                <h3> Learning Process </h3>
+                The process starts with random token representations. Through successive layers, the representations are <b>compressed</b> to align with the axis via the MSSA block, forming intermediate representations are semantically more consistent among relevant tokens. This is then refined by <b>sparse coding</b> (the ISTA block) to produce the final representations that align on incoherent axes, leading to semantically more specified token representations. Repeated across layers, this culminates in distinct token representations aligned on unique semantic axes.
+                <br><br>
+                <div class="container is-max-desktop">
+                    <div class="columns is-centered has-text-centered">
+                        <div class="column is-four-fifths">
                             <img src="website/images/learning-process.png" alt="teaser" 
                                 style="margin: 0 auto; display: block; max-width: 1000px; width: 100%; height: auto;" />
-                        <br><br>
-                        <h3> Performance </h3>
-                        We pre-train CRATE-Base and GPT2-Base on <a href="https://huggingface.co/datasets/monology/pile-uncopyrighted">the Pile dataset (uncopyrighted)</a>. The training recipe is similar to <a href="https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf">GPT-2</a>, please check our paper for details! 
-                        <br> Key takeaways of performance experiments:
-                        <br> 1. Both training and validation loss curve of CRATE-Base on the Pile dataset converges well.
-                        <br> 2. The performance of CRATE is close to GPT-2 across all model sizes.
-                        <img src="website/images/loss.png" alt="teaser" 
-                            style="margin: 0 auto; display: block; max-width: 1000px; width: 100%; height: auto;" />
-                        <br> 3. CRATE-LM produces reasonable predictions.
-                        <img src="website/images/qual-examples.png" alt="teaser" 
-                            style="margin: 0 auto; display: block; max-width: 1000px; width: 100%; height: auto;" />
-                        <br><br>
-                        <h3> Interpretability </h3>
-                        CRATE achieves markedly improved and more steady neuron-level interpretability across layers compared to GPT-2, applicable across a wide range of model sizes.
-                        <br>
-                        <img src="website/images/interp-scores-overall.jpg" alt="teaser" 
-                            style="margin: 0 auto; display: block; max-width: 1000px; width: 100%; height: auto;" />
-                        We show evaluation results of the interpretability of CRATE and GPT-2 averaged across layers in the left part of the figure above. CRATE comprehensively outperforms GPT-2 on all metrics for L∈{2,3,6,12}. When averaging the mean interpretability across all metrics, CRATE outperforms GPT-2 up to strikingly 103% relative improvement under the OpenAI Random-only metric when L=6.
-                        <br>
-                        <div style="text-align:center;">
+                            <p style="color:gray">CRATE iteratively compresses (MSSA block) and sparsifies (ISTA block) the token representations (colored points) across its layers from 1 to L, transforming them into parsimonious representations aligned on axes (colored lines) with distinct semantic meanings.</p>
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+                <h3> Performance </h3>
+                We pre-train CRATE-Base and GPT2-Base on <a href="https://huggingface.co/datasets/monology/pile-uncopyrighted">the Pile dataset (uncopyrighted)</a>. The training recipe is similar to <a href="https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf">GPT-2</a>, please check our paper for details! 
+                <br> Key takeaways of performance experiments:
+                <br> 1. Both training and validation loss curve of CRATE-Base on the Pile dataset converges well.
+                <br> 2. The performance of CRATE is close to GPT-2 across all model sizes.
+                <div class="container is-max-desktop">
+                    <div class="columns is-centered has-text-centered">
+                        <div class="column is-four-fifths">
+                            <img src="website/images/loss.png" alt="teaser" 
+                                style="margin: 0 auto; display: block; max-width: 1000px; width: 100%; height: auto;" />
+                            <p style="color:gray">Left: loss curve when pre-training CRATE-Base and GPT2-Base on the Pile dataset. Right: Validation loss of CRATE compared to GPT-2 on the Pile dataset, with respect to the model size.</p>
+                        </div>
+                    </div>
+                </div>
+                <br> 3. CRATE-LM produces reasonable predictions.
+                <div class="container is-max-desktop">
+                    <div class="columns is-centered has-text-centered">
+                        <div class="column is-four-fifths">
+                            <img src="website/images/qual-examples.png" alt="teaser" 
+                                style="margin: 0 auto; display: block; max-width: 1000px; width: 100%; height: auto;" />
+                            <p style="color:gray">Qualitative examples of predictions made by CRATE and GPT-2. The tokens in blue are considered good. We compare CRATE-Base to GPT2-Base on the next word prediction task.</p>
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+                <h3> Overall Interpretability </h3>
+                CRATE achieves markedly improved and more steady neuron-level interpretability across layers compared to GPT-2, applicable across a wide range of model sizes.
+                <br> 1. CRATE comprehensively outperforms GPT-2 on all metrics for L∈{2,3,6,12}. When averaging the mean interpretability across all metrics, CRATE outperforms GPT-2 up to strikingly 103% relative improvement under the OpenAI Random-only metric when L=6.
+                <br> 2. The interpretability of CRATE is much more steady than GPT-2 across all model sizes.
+                <br>
+                <div class="container is-max-desktop">
+                    <div class="columns is-centered has-text-centered">
+                        <div class="column is-four-fifths">
+                            <img src="website/images/interp-scores-overall.jpg" alt="teaser" 
+                                style="margin: 0 auto; display: block; max-width: 1000px; width: 100%; height: auto;" />
+                            <p style="color:gray">Mean and variance of the average interpretability across layers for different model sizes.</p>
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+                <h3> Layer-wise Interpretability </h3>
+                CRATE achieves higher interpretability than GPT-2 on almost all layers across all model configurations.
+                <br>
+                <div class="container is-max-desktop">
+                    <div class="columns is-centered has-text-centered">
+                        <div class="column is-four-fifths">
                             <img src="website/images/interp-scores.jpg" alt="teaser" 
                                 style="margin: 0 auto; display: block; max-width: 1000px; width: 100%; height: auto;" />
+                            <p style="color:gray">Interpretation scores evaluated using the OpenAI Random-only metric, Top-and-Random metric, and Anthropic metric, respectively. Top: interpretation scores of CRATE and GPT-2 for L=12. Middle: interpretation scores of CRATE and GPT-2 for L=6. Bottom: interpretation scores of CRATE, GPT-2, and GPT-2 with sparse auto-encoder for L∈{1,2,3}. Variance bars are normalized to 1/10 of its original size.</p>
                         </div>
-                        We observe that the interpretability of \ours{} comprehensively outperforms GPT-2 on all metrics for $L\in\{2,3,6,12\}$. When averaging the mean interpretability across all metrics, \ours{} outperforms GPT-2 up to strikingly $103$\% relative improvement under the OpenAI Random-only metric when $L=6$. 
-                        We also present the layer-wise interpretation scores in~\Cref{fig:gpt-crate-interp-comp}, which demonstrates that \ours{} achieves higher interpretability than GPT-2 on almost all layers. For detailed distributions of the layer-wise scores of \ours{}-Base compared to GPT2-Base on different metrics, refer to~\Cref{app:interp-distribution}.
                     </div>
-
                 </div>
-                <!--/ Visual Effects. -->
-
             </div>
+        </div>
     </section>
 
     <section class="section" id="evaluation">
@@ -256,7 +283,7 @@
     <section class="section" id="BibTeX">
         <div class="container is-max-desktop content">
             <h2 class="title">BibTeX</h2>
-            <pre><code>@article{bai2024digirl,
+            <pre><code>@article{bai2024improving,
 title={Improving Neuron-level Interpretability with White-box Language Models},
 author={Bai, Hao and Ma, Yi},
 journal={arXiv preprint arXiv:2406.11896},

@@ -205,7 +205,7 @@
                     </div>
                 </div>
                 <br><br>
-                <h3> Performance </h3>
+                <h3> Performance on the Next Token Prediction Task </h3>
                 We pre-train CRATE-Base and GPT2-Base on <a href="https://huggingface.co/datasets/monology/pile-uncopyrighted">the Pile dataset (uncopyrighted)</a>. The training recipe is similar to <a href="https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf">GPT-2</a>, please check our paper for details! 
                 <br> Key takeaways of performance experiments:
                 <br> 1. Both training and validation loss curve of CRATE-Base on the Pile dataset converges well.
@@ -231,7 +231,7 @@
                     </div>
                 </div>
                 <br><br>
-                <h3> Overall Interpretability </h3>
+                <h3> Neuron-level Interpretability </h3>
                 CRATE achieves markedly improved and more steady neuron-level interpretability across layers compared to GPT-2, applicable across a wide range of model sizes.
                 <br> 1. CRATE comprehensively outperforms GPT-2 on all metrics for L∈{2,3,6,12}. When averaging the mean interpretability across all metrics, CRATE outperforms GPT-2 up to strikingly 103% relative improvement under the OpenAI Random-only metric when L=6.
                 <br> 2. The interpretability of CRATE is much more steady than GPT-2 across all model sizes.
@@ -246,7 +246,7 @@
                     </div>
                 </div>
                 <br><br>
-                <h3> Layer-wise Interpretability </h3>
+                <h3> Layer-wise Interpretability Analysis </h3>
                 CRATE achieves higher interpretability than GPT-2 on almost all layers across all model configurations.
                 <br>
                 <div class="container is-max-desktop">

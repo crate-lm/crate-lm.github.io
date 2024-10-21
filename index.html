@@ -163,7 +163,7 @@
                 <h2 class="title is-3">The CRATE Language Model: Improved Neuron-level Interpretability</h2>
                 <h3>Architecture</h3>
                 <div class="text-justified" id="tool-augmented">
-                    We apply the <a href="https://arxiv.org/abs/2306.01129">original CRATE architecture</a> to the <i>next-token prediction task</i>. This leads to several modifications in the model architecture:
+                    We apply the <a href="https://arxiv.org/abs/2306.01129">original CRATE architecture</a> to the <i>next-token prediction task</i> proposed in <a href=https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf">GPT-2</a>. This leads to several modifications in the model architecture:
                     <br> 1. We apply a <b>causal mask</b> to ensure the model does not see tokens after the current one.
                     <br> 2. We <b>over-parameterize</b> (increase the hidden dimension) of the <tt>ISTA</tt> block to match GPT-2's MLP block.
                     <br> These modifications result in the block architecture below:
@@ -206,7 +206,8 @@
                         <div class="column is-four-fifths">
                             <img src="website/images/loss.png" alt="teaser" 
                                 style="margin: 0 auto; display: block; max-width: 1000px; width: 100%; height: auto;" />
-                            <p style="color:gray">Left: loss curve when pre-training CRATE-Base and GPT2-Base on the Pile dataset. Right: Validation loss of CRATE compared to GPT-2 on the Pile dataset, with respect to the model size.</p>
+                            <p style="color:gray">Left: loss curve when pre-training CRATE-Base and GPT2-Base on the Pile dataset. 
+                                <br>Right: Validation loss of CRATE compared to GPT-2 on the Pile dataset, with respect to the model size.</p>
                         </div>
                     </div>
                 </div>
@@ -244,7 +245,11 @@
                         <div class="column is-four-fifths">
                             <img src="website/images/interp-scores.jpg" alt="teaser" 
                                 style="margin: 0 auto; display: block; max-width: 1000px; width: 100%; height: auto;" />
-                            <p style="color:gray">Interpretation scores evaluated using the OpenAI Random-only metric, Top-and-Random metric, and Anthropic metric, respectively. Top: interpretation scores of CRATE and GPT-2 for L=12. Middle: interpretation scores of CRATE and GPT-2 for L=6. Bottom: interpretation scores of CRATE, GPT-2, and GPT-2 with sparse auto-encoder for L∈{1,2,3}. Variance bars are normalized to 1/10 of its original size.</p>
+                            <p style="color:gray">Interpretation scores evaluated using the OpenAI Random-only metric, Top-and-Random metric, and Anthropic metric, respectively. 
+                                <br>Top: interpretation scores of CRATE and GPT-2 for L=12. 
+                                <br>Middle: interpretation scores of CRATE and GPT-2 for L=6. 
+                                <br>Bottom: interpretation scores of CRATE, GPT-2, and GPT-2 with sparse auto-encoder for L∈{1,2,3}. 
+                                <br>Variance bars are normalized to 1/10 of its original size.</p>
                         </div>
                     </div>
                 </div>

@@ -161,7 +161,7 @@
         <div class="container is-max-desktop">
             <div class="text-justified">
                 <h2 class="title is-3">The CRATE Language Model: Improved Neuron-level Interpretability</h2>
-                <h3>Architecture</h3>
+                <h3>Re-proposing the CRATE Architecture in the Language Domain </h3>
                 <div class="text-justified" id="tool-augmented">
                     We apply the <a href="https://arxiv.org/abs/2306.01129">original CRATE architecture</a> to the <i>next-token prediction task</i> proposed in <a href=https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf">GPT-2</a>. This leads to several modifications in the model architecture:
                     <br> 1. We apply a <b>causal mask</b> to ensure the model does not see tokens after the current one.
@@ -180,10 +180,19 @@
                 </div>
                 <br>
                 <div class="text-justified" id="tool-augmented"></div>
-                    Despite the change of the block architecture, the <b>embedding layer and heads</b> are adjusted to accommodate the language vocabulary. Previously the embedding layer and head were the same as the <a href="https://arxiv.org/abs/2010.11929">Visual Transformer</a>.
+                    Despite the change of the block architecture, the <b>embedding layer and heads</b> are adjusted to accommodate the language vocabulary. Previously the embedding layer and head were the same as the <a href="https://arxiv.org/abs/2010.11929">Visual Transformer</a>. The resulting model configurations of the CRATE-LM and GPT-2 are shown below:
+                </div>
+                <div class="container is-max-desktop">
+                    <div class="columns is-centered has-text-centered">
+                        <div class="column is-four-fifths">
+                            <img src="website/images/model-configs.png" alt="teaser" 
+                                style="margin: 0 auto; display: block; max-width: 1000px; width: 80%; height: auto;" />
+                            <p style="color:gray">Model configuration of CRATE and model size comparison to GPT-2.</p>
+                        </div>
+                    </div>
                 </div>
                 <br><br>
-                <h3> Learning Process </h3>
+                <h3> How Does the CRATE Language Model Process Tokens? </h3>
                 The process starts with random token representations. Through successive layers, the representations are <b>compressed</b> to align with the axis via the MSSA block, forming intermediate representations are semantically more consistent among relevant tokens. This is then refined by <b>sparse coding</b> (the ISTA block) to produce the final representations that align on incoherent axes, leading to semantically more specified token representations. Repeated across layers, this culminates in distinct token representations aligned on unique semantic axes.
                 <br><br>
                 <div class="container is-max-desktop">

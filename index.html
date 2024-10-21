@@ -214,7 +214,7 @@
                     </div>
                 </div>
                 <br><br>
-                <h3> Neuron-level Interpretability </h3>
+                <h3> Doubling Neuron-level Interpretability </h3>
                 CRATE achieves markedly improved and more steady neuron-level interpretability across layers compared to GPT-2, applicable across a wide range of model sizes.
                 <br> 1. CRATE comprehensively outperforms GPT-2 on all metrics for L∈{2,3,6,12}. When averaging the mean interpretability across all metrics, CRATE outperforms GPT-2 up to strikingly 103% relative improvement under the OpenAI Random-only metric when L=6.
                 <br> 2. The interpretability of CRATE is much more steady than GPT-2 across all model sizes.
@@ -229,15 +229,15 @@
                     </div>
                 </div>
                 <br><br>
-                <h3> Layer-wise Interpretability Analysis </h3>
-                CRATE achieves higher interpretability than GPT-2 on almost all layers across all model configurations.
-                <br>
+                <h3> Where Does the Improved Neuron-level Interpretability of CRATE Come From? </h3>
+                The strong interpretability of CRATE on the OpenAI Top-and-Random metric and the Anthropic metric, as shown in the layer-wise interpretability figure below, indicates its consistent behavior on relevant tokens. These two methods contain a large portion of top-activated text excerpts, so they are valid for measuring whether the activations are consistent with the summarized explanation. 
+                Additionally, the larger interpretability gap of CRATE and GPT-2 on the OpenAI Random-only metric versus the Top-and-Random metric highlights the specificity of CRATE in avoiding firing on irrelevant tokens. The random-only metric usually includes highly irrelevant text excerpts, so it effectively measures the capability of the language model to avoid activating on semantically irrelevant tokens.
                 <div class="container is-max-desktop">
                     <div class="columns is-centered has-text-centered">
                         <div class="column is-four-fifths">
                             <img src="website/images/interp-scores.jpg" alt="teaser" 
                                 style="margin: 0 auto; display: block; max-width: 1000px; width: 100%; height: auto;" />
-                            <p style="color:gray">Interpretation scores evaluated using the OpenAI Random-only metric, Top-and-Random metric, and Anthropic metric, respectively. 
+                            <p style="color:gray"><b>Layer-wise</b> interpretation scores evaluated using the OpenAI Random-only metric, Top-and-Random metric, and Anthropic metric, respectively. 
                                 <br>Top: interpretation scores of CRATE and GPT-2 for L=12. 
                                 <br>Middle: interpretation scores of CRATE and GPT-2 for L=6. 
                                 <br>Bottom: interpretation scores of CRATE, GPT-2, and GPT-2 with sparse auto-encoder for L∈{1,2,3}. 
@@ -245,21 +245,18 @@
                         </div>
                     </div>
                 </div>
-                <h3> How Does Interpretability of CRATE compare to GPT-2 with Sparse Auto-Encoder?</h3>
-                The interpretability scores of GPT2-SAE compared to CRATE and GPT-2, as depicted in the layer-wise interpretability figure above (bottom row), reveal that under the long-context OpenAI metrics, GPT2-SAE matches GPT-2 but falls short of CRATE. This is attributed to its neuron activations becoming nearly 99% sparse after sparse auto-encoding, diminishing interpretability in long contexts. Conversely, under the Anthropic metric, GPT2-SAE surpasses both GPT-2 and CRATE in interpretability, corroborating findings in <a href="https://transformer-circuits.pub/2023/monosemantic-features">Bricken et al.</a> that post-hoc approaches enhance short-context interpretability, often a sign of mono-semanticity. However, the interpretability of GPT2-SAE on the Anthropic metric decreases significantly for layers that are deeper, while CRATE's remains steady, introducing concern in scalability of GPT-SAE. 
-                <br><br>
-                <h3> Where Does the Improved Neuron-level Interpretability of CRATE Come From? </h3>
-                The strong interpretability of CRATE on the OpenAI Top-and-Random metric and the Anthropic metric, as shown in the layer-wise interpretability figure above, indicates its consistent behavior on relevant tokens. These two methods contain a large portion of top-activated text excerpts, so they are valid for measuring whether the activations are consistent with the summarized explanation. 
-                Additionally, the larger interpretability gap of CRATE and GPT-2 on the OpenAI Random-only metric versus the Top-and-Random metric highlights the specificity of CRATE in avoiding firing on irrelevant tokens. The random-only metric usually includes highly irrelevant text excerpts, so it effectively measures the capability of the language model to avoid activating on semantically irrelevant tokens.
+                Qualitatively, we show the interpretation examples shown in the figure below. In this figure, we list three neurons from CRATE (row 1) and GPT-2 (row 2), respectively. For each neuron, we show two top-activated text excerpts and one random excerpt. 
+                Results show that CRATE is able to consistently activate on sementically similar tokens within the most relevant text excerpts, and does not activate on random tokens that are semantically distinguished from the top tokens. This promotes a more precise explanation given by the explanation model (e.g., Mistral).
+                On the other hand, GPT-2 is much worse at distinguishing tokens from different contexts, because it also has high activations on random text excerpts where the semantic meanings deviate far from the top activations.
                 <div class="columns is-centered has-text-centered">
                     <div class="column is-four-fifths">
                         <img src="website/images/teaser.png" alt="teaser" style="max-width: 100%; height: auto;">
                         <a style="color:gray"> Instances are systematically identified where the interpretability of <strong>CRATE</strong> (ours, <em>row 1</em>) outperforms GPT-2 (<em>row 2</em>). For each neuron (<em>rounded box</em>), we show two top activated text excerpts (<em>excerpt</em> <strong>1</strong> and <strong>2</strong>) and one randomly activated excerpt (<em>excerpt</em> <strong>3</strong>). Results show that <strong>CRATE</strong> consistently activates <em>on and only on</em> semantically relevant text excerpts (first two excerpts), leading to more precise explanations predicted by agents like Mistral. </a>
                     </div>
                 </div>
-                <br> Qualitatively, we to the interpretation examples shown in the figure above. In this figure, we list three neurons from CRATE (row 1) and GPT-2 (row 2), respectively. For each neuron, we show two top-activated text excerpts and one random excerpt. 
-                Results show that CRATE is able to consistently activate on sementically similar tokens within the most relevant text excerpts, and does not activate on random tokens that are semantically distinguished from the top tokens. This promotes a more precise explanation given by the explanation model (e.g., Mistral).
-                On the other hand, GPT-2 is much worse at distinguishing tokens from different contexts, because it also has high activations on random text excerpts where the semantic meanings deviate far from the top activations.
+                <br><br>
+                <h3> How Does Interpretability of CRATE compare to GPT-2 with Sparse Auto-Encoder?</h3>
+                The interpretability scores of GPT2-SAE compared to CRATE and GPT-2, as depicted in the <b>layer-wise</b> interpretability figure above (bottom row), reveal that under the long-context OpenAI metrics, GPT2-SAE matches GPT-2 but falls short of CRATE. This is attributed to its neuron activations becoming nearly 99% sparse after sparse auto-encoding, diminishing interpretability in long contexts. Conversely, under the Anthropic metric, GPT2-SAE surpasses both GPT-2 and CRATE in interpretability, corroborating findings in <a href="https://transformer-circuits.pub/2023/monosemantic-features">Bricken et al.</a> that post-hoc approaches enhance short-context interpretability, often a sign of mono-semanticity. However, the interpretability of GPT2-SAE on the Anthropic metric decreases significantly for layers that are deeper, while CRATE's remains steady, introducing concern in scalability of GPT-SAE. 
             </div>
         </div>
     </section>

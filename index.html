@@ -258,6 +258,16 @@
                 <br><br>
                 <h3> How Does Interpretability of CRATE compare to GPT-2 with Sparse Auto-Encoder?</h3>
                 The interpretability scores of GPT2-SAE compared to CRATE and GPT-2, as depicted in the <b>layer-wise</b> interpretability figure above (bottom row), reveal that under the long-context OpenAI metrics, GPT2-SAE matches GPT-2 but falls short of CRATE. This is attributed to its neuron activations becoming nearly 99% sparse after sparse auto-encoding, diminishing interpretability in long contexts. Conversely, under the Anthropic metric, GPT2-SAE surpasses both GPT-2 and CRATE in interpretability, corroborating findings in <a href="https://transformer-circuits.pub/2023/monosemantic-features">Bricken et al.</a> that post-hoc approaches enhance short-context interpretability, often a sign of mono-semanticity. However, the interpretability of GPT2-SAE on the Anthropic metric decreases significantly for layers that are deeper, while CRATE's remains steady, introducing concern in scalability of GPT-SAE. 
+                <br><br>
+                <h3> Can We Steer the Next Token Predicted By Activating Neurons in CRATE? </h3>
+                We manually activate some neurons and observe the logit effects (changes of the token probability of the language model head). Compared to the lossy steering of the SAE models, CRATE can be steered without loss.
+                <br><br>
+                <div class="columns is-centered has-text-centered">
+                    <div class="column is-four-fifths">
+                        <img src="website/images/steering.png" alt="teaser" style="max-width: 100%; height: auto;">
+                        <a style="color:gray"> Qualitative examples on logit effects of manually activating feature (i) in CRATE. Text shown on the right side are the most positive changes in token prediction probability. The logit effects align with feature interpretations. </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
